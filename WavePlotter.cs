@@ -1,29 +1,27 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
 using OxyPlot.Annotations;
 using OxyPlot.WindowsForms;
+using System.Reflection;
 
-namespace HarmonyHacker
-{
-    public class WavePlotter
-    {
-        public void PlotWave(SoundWave wave, string filePath)
-        {
+
+namespace HarmonyHacker {
+    public class WavePlotter {
+        public void PlotWave(SoundWave wave, string filePath) {
             var plotModel = new PlotModel { Title = "Waveform" };
 
-            var timeAxis = new LinearAxis
-            {
+            var timeAxis = new LinearAxis {
                 Position = AxisPosition.Bottom,
                 Title = "Time (s)",
                 Minimum = 0,
                 Maximum = wave.Duration.TotalSeconds
             };
 
-            var amplitudeAxis = new LinearAxis
-            {
+            var amplitudeAxis = new LinearAxis {
                 Position = AxisPosition.Left,
                 Title = "Amplitude",
                 Minimum = -32768,
@@ -33,24 +31,20 @@ namespace HarmonyHacker
             plotModel.Axes.Add(timeAxis);
             plotModel.Axes.Add(amplitudeAxis);
 
-            var lineSeries = new LineSeries
-            {
+            var lineSeries = new LineSeries {
                 Title = "Waveform",
                 StrokeThickness = 1,
                 Color = OxyColors.Blue
             };
 
             string previousNote = null;
-            for (int i = 0; i < wave.Frames.Length; i++)
-            {
+            for (int i = 0; i < wave.Frames.Length; i++) {
                 double time = wave.Frames[i].Time.TotalSeconds;
                 double amplitude = wave.Frames[i].Data;
                 lineSeries.Points.Add(new DataPoint(time, amplitude));
 
-                if (!string.IsNullOrEmpty(wave.Frames[i].Note) && wave.Frames[i].Note != previousNote)
-                {
-                    var textAnnotation = new TextAnnotation
-                    {
+                if (!string.IsNullOrEmpty(wave.Frames[i].Note) && wave.Frames[i].Note != previousNote) {
+                    var textAnnotation = new TextAnnotation {
                         Text = wave.Frames[i].Note,
                         TextPosition = new DataPoint(time, 0), // Pozycja na linii 0
                         Stroke = OxyColors.Transparent,
@@ -61,6 +55,21 @@ namespace HarmonyHacker
                     plotModel.Annotations.Add(textAnnotation);
                     previousNote = wave.Frames[i].Note;
                 }
+            }
+
+            // Zaznaczanie wykrytych szczytów
+            foreach (int index in wave.PeakIndices) {
+                double time = wave.Frames[index].Time.TotalSeconds;
+
+                var textAnnotation = new TextAnnotation {
+                    Text = "X",
+                    TextPosition = new DataPoint(time, 0), // Pozycja na osi 0
+                    Stroke = OxyColors.Transparent,
+                    TextColor = OxyColors.Green,
+                    FontSize = 16,
+                    FontWeight = FontWeights.Bold
+                };
+                plotModel.Annotations.Add(textAnnotation);
             }
 
             plotModel.Series.Add(lineSeries);

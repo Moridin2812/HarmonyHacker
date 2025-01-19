@@ -29,7 +29,7 @@ namespace HarmonyHacker {
             // Wyświetlanie niepowtarzających się nut w czasie ich wystąpienia
             string previousNote = null;
             foreach (var frame in soundWave.Frames) {
-                if (!string.IsNullOrEmpty(frame.Note) && frame.Note != previousNote) {
+                if (!string.IsNullOrEmpty(frame.Note)) {
                     string time = frame.Time.ToString(@"mm\:ss\.fff");
                     Console.WriteLine($"Czas: {time} - Nuta: {frame.Note} ({frame.Data} Hz)");
                     previousNote = frame.Note;

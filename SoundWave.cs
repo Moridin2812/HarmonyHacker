@@ -49,8 +49,8 @@ namespace HarmonyHacker {
         /// </summary>
         public void AssignNotes() {
             // Wywołaj funkcję DetectAndDebugPeaks na początku
-            //SignalProcessor signalProcessor = new SignalProcessor();
-            //signalProcessor.DetectAndDebugPeaks(this);
+            SignalProcessor signalProcessor = new SignalProcessor();
+            signalProcessor.DetectPeaks(this);
 
             var noteFrequencies = GenerateNoteFrequencies();
             var frequencies = noteFrequencies.Keys.ToArray();
@@ -60,11 +60,6 @@ namespace HarmonyHacker {
 
             // Analiza częstotliwości z użyciem STFT
             AnalyzeFrequenciesWithSTFT(samples, (int)SampleRate, noteFrequencies);
-
-            // Wywołaj funkcję DetectAndDebugPeaks na początku
-            SignalProcessor signalProcessor = new SignalProcessor();
-            signalProcessor.DetectAndDebugPeaks(this);
-
         }
 
         /// <summary>

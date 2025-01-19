@@ -25,8 +25,6 @@ namespace HarmonyHacker {
             Console.WriteLine($"[SoundWave] Sample Rate: {soundWave.SampleRate}");
             Console.WriteLine($"[SoundWave] Bits Per Sample: {soundWave.BitsPerSample}");
 
-            // Analiza częstotliwości
-            soundWave.AssignNotes();
 
             // Wyświetlanie niepowtarzających się nut w czasie ich wystąpienia
             string previousNote = null;
@@ -37,6 +35,13 @@ namespace HarmonyHacker {
                     previousNote = frame.Note;
                 }
             }
+
+            // Rysowanie wykresu i zapis do pliku PNG
+            var plotter = new WavePlotter();
+            string pngFilePath = System.IO.Path.ChangeExtension(mp3FilePath, ".png");
+            plotter.PlotWave(soundWave, pngFilePath);
+
+            Console.WriteLine($"Wykres zapisany do pliku: {pngFilePath}");
         }
     }
 }

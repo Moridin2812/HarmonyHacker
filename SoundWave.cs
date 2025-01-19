@@ -68,9 +68,14 @@ namespace HarmonyHacker
         {
             Console.WriteLine("\nWykonywanie analizy częstotliwości...");
 
-            int windowSize = 8192; // Rozmiar okna
-            int hopSize = 2048; // Przesunięcie okna
+            int windowSize = 2048; // Rozmiar okna
+            int hopSize = 1024; // Przesunięcie okna
             double amplitudeThreshold = 0.005; // Próg amplitudy
+
+            // dobrze dzialajace okno
+            //int windowSize = 8192; // Rozmiar okna
+            //int hopSize = 2048; // Przesunięcie okna
+            //double amplitudeThreshold = 0.005; // Próg amplitudy
 
             string previousNoteName = null;
             int totalWindows = (samples.Length - windowSize) / hopSize;

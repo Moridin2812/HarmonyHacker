@@ -66,7 +66,7 @@ namespace HarmonyHacker
         /// </summary>
         public void AnalyzeFrequenciesWithSTFT(float[] samples, int sampleRate, Dictionary<double, string> noteFrequencies)
         {
-            //Console.WriteLine("\nWykonywanie analizy częstotliwości...");
+            Console.WriteLine("\nWykonywanie analizy częstotliwości...");
 
             int windowSize = 8192; // Rozmiar okna
             int hopSize = 2048; // Przesunięcie okna

@@ -10,10 +10,12 @@ namespace HarmonyHacker {
             //     return;
             // }
 
-            // string mp3FilePath = args[0];
+            // Ścieżka do pliku MP3
             string mp3FilePath = @"C:\Users\morid\OneDrive\Pulpit\sample.mp3";
+            // Ścieżka do pliku WAV
             string wavFilePath = System.IO.Path.ChangeExtension(mp3FilePath, ".wav");
 
+            // Konwersja i odczyt pliku WAV
             var soundWave = SoundReader.ConvertAndReadWavFile(mp3FilePath, wavFilePath);
 
             Console.WriteLine("[SoundWave] Info:");
@@ -22,17 +24,15 @@ namespace HarmonyHacker {
             Console.WriteLine($"[SoundWave] Sample Rate: {soundWave.SampleRate}");
             Console.WriteLine($"[SoundWave] Bits Per Sample: {soundWave.BitsPerSample}");
 
-            // Zakomentowane wyświetlanie danych WAV
-            // short? previousData = null;
-            // foreach (var frame in soundWave.Frames)
-            // {
-            //     if (frame.Data != previousData)
-            //     {
-            //         string time = frame.Time.ToString(@"mm\:ss\.fff");
-            //         Console.WriteLine($"{time} {frame.Data} [{frame.Index}]");
-            //         previousData = frame.Data;
-            //     }
-            // }
+            // Wyświetlanie niepowtarzających się nut w czasie ich wystąpienia
+            //string previousNote = null;
+            //foreach (var frame in soundWave.Frames) {
+            //    if (frame.Note != previousNote) {
+            //        string time = frame.Time.ToString(@"mm\:ss\.fff");
+            //        Console.WriteLine($"Czas: {time} - Nuta: {frame.Note} ({frame.Data} Hz)");
+            //        previousNote = frame.Note;
+            //    }
+            //}
         }
     }
 }

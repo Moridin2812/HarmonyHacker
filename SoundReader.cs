@@ -76,8 +76,11 @@ namespace HarmonyHacker {
                     };
                 }
 
+                // Przypisz nuty do ramek
+                soundWave.AssignNotes();
+
                 // Wyświetlanie informacji debugowania
-                // DisplayDebugInfo(wavFile);
+                //DisplayDebugInfo(wavFile);
 
                 return soundWave;
             }

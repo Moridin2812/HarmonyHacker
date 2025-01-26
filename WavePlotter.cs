@@ -7,6 +7,7 @@ using OxyPlot.Axes;
 using OxyPlot.Annotations;
 using OxyPlot.WindowsForms;
 using System.Reflection;
+using System.Linq;
 
 
 namespace HarmonyHacker {
@@ -37,15 +38,18 @@ namespace HarmonyHacker {
                 Color = OxyColors.Blue
             };
 
-            string previousNote = null;
+            List<string> previousNotes = null;
             for (int i = 0; i < wave.Frames.Length; i++) {
                 double time = wave.Frames[i].Time.TotalSeconds;
                 double amplitude = wave.Frames[i].Data;
                 lineSeries.Points.Add(new DataPoint(time, amplitude));
 
-                if (!string.IsNullOrEmpty(wave.Frames[i].Note) && wave.Frames[i].Note != previousNote) {
+                /*
+                var currentNotes = wave.Frames[i].Notes;
+                if (currentNotes != null && currentNotes.Any() && (previousNotes == null || !currentNotes.SequenceEqual(previousNotes))) {
+                    string notesText = string.Join(", ", currentNotes);
                     var textAnnotation = new TextAnnotation {
-                        Text = wave.Frames[i].Note,
+                        Text = notesText,
                         TextPosition = new DataPoint(time, 0), // Pozycja na linii 0
                         Stroke = OxyColors.Transparent,
                         TextColor = OxyColors.Red, // Zmieniono kolor na czerwony
@@ -53,9 +57,12 @@ namespace HarmonyHacker {
                         FontWeight = FontWeights.Bold
                     };
                     plotModel.Annotations.Add(textAnnotation);
-                    previousNote = wave.Frames[i].Note;
+                    previousNotes = new List<string>(currentNotes);
                 }
+                */
             }
+
+
 
             // Zaznaczanie wykrytych szczytów
             foreach (int index in wave.PeakIndices) {

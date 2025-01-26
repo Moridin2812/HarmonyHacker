@@ -158,8 +158,7 @@ namespace HarmonyHacker {
             int peakCount = 0;
             foreach (long index in peakIndices) {
                 peakCount++;
-                string note = wave.Frames[(int)index].Note ?? "---";
-                Console.WriteLine($"Szczyt {peakCount} znaleziony na indeksie {index}, czas: {wave.Frames[(int)index].Time.TotalMilliseconds} ms, amplituda: {wave.Frames[(int)index].Data}, nuta: {note}");
+                Console.WriteLine($"Szczyt {peakCount} znaleziony na indeksie {index}, czas: {wave.Frames[(int)index].Time.TotalMilliseconds} ms, amplituda: {wave.Frames[(int)index].Data}");
             }
 
             Console.WriteLine($"Liczba wykrytych szczytów: {peakCount}");

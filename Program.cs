@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HarmonyHacker {
     class Program {
@@ -25,14 +27,14 @@ namespace HarmonyHacker {
             Console.WriteLine($"[SoundWave] Sample Rate: {soundWave.SampleRate}");
             Console.WriteLine($"[SoundWave] Bits Per Sample: {soundWave.BitsPerSample}");
 
-
             // Wyświetlanie niepowtarzających się nut w czasie ich wystąpienia
-            string previousNote = null;
+            List<string> previousNotes = null;
             foreach (var frame in soundWave.Frames) {
-                if (!string.IsNullOrEmpty(frame.Note)) {
-                    string time = frame.Time.ToString(@"mm\:ss\.fff");
-                    Console.WriteLine($"Czas: {time} - Nuta: {frame.Note} ({frame.Data} Hz)");
-                    previousNote = frame.Note;
+                if (frame.Notes != null && frame.Notes.Any()) {
+                    string time = frame.Time.ToString("mm':'ss'.'fff");
+                    string notesString = string.Join(", ", frame.Notes);
+                    Console.WriteLine($"Czas: {time} - Nuty: {notesString} ({frame.Data} Hz)");
+                    previousNotes = frame.Notes;
                 }
             }
 
